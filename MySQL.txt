@@ -1,0 +1,215 @@
+Date - 09-11-2022
+program- MySQL
+
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bookinfo           |
+| companywipro       |
+| employeeinfo       |
+| employeesystem     |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+8 rows in set (0.01 sec)
+
+mysql> create database empdb;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use empdb;
+Database changed
+mysql> create table emp(
+    -> id int not null auto_increment,
+    -> name varchar(20) not null,
+    -> occupation varchar(20) not null,
+    -> age int not null,
+    -> primary key(id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc emp;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(20) | NO   |     | NULL    |                |
+| occupation | varchar(20) | NO   |     | NULL    |                |
+| age        | int         | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> insert into emp values(1,'krushikesh','Trainer',24);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(2,'swati','Devloper',24);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(3,'pooja','Tester',26);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp values(4,'rupesh','QualityTester',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from emp;
++----+------------+---------------+-----+
+| id | name       | occupation    | age |
++----+------------+---------------+-----+
+|  1 | krushikesh | Trainer       |  24 |
+|  2 | swati      | Devloper      |  24 |
+|  3 | pooja      | Tester        |  26 |
+|  4 | rupesh     | QualityTester |  25 |
++----+------------+---------------+-----+
+4 rows in set (0.00 sec)
+
+mysql> update emp set name='raj',age=25 where id=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from emp;
++----+------------+---------------+-----+
+| id | name       | occupation    | age |
++----+------------+---------------+-----+
+|  1 | krushikesh | Trainer       |  24 |
+|  2 | swati      | Devloper      |  24 |
+|  3 | raj        | Tester        |  25 |
+|  4 | rupesh     | QualityTester |  25 |
++----+------------+---------------+-----+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp add address varchar(20) not null;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(20) | NO   |     | NULL    |                |
+| occupation | varchar(20) | NO   |     | NULL    |                |
+| age        | int         | NO   |     | NULL    |                |
+| address    | varchar(20) | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> update emp set address='Navi Mumbai' where id=1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set address='Thane' where id=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set address='Mumbai' where id=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set address='Pune' where id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> desc emp;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(20) | NO   |     | NULL    |                |
+| occupation | varchar(20) | NO   |     | NULL    |                |
+| age        | int         | NO   |     | NULL    |                |
+| address    | varchar(20) | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select*from emp;
++----+------------+---------------+-----+-------------+
+| id | name       | occupation    | age | address     |
++----+------------+---------------+-----+-------------+
+|  1 | krushikesh | Trainer       |  24 | Navi Mumbai |
+|  2 | swati      | Devloper      |  24 | Thane       |
+|  3 | raj        | Tester        |  25 | Mumbai      |
+|  4 | rupesh     | QualityTester |  25 | Pune        |
++----+------------+---------------+-----+-------------+
+4 rows in set (0.00 sec)
+
+mysql> update emp set name='pooja',age=25 where id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from emp;
++----+------------+---------------+-----+-------------+
+| id | name       | occupation    | age | address     |
++----+------------+---------------+-----+-------------+
+|  1 | krushikesh | Trainer       |  24 | Navi Mumbai |
+|  2 | swati      | Devloper      |  24 | Thane       |
+|  3 | raj        | Tester        |  25 | Mumbai      |
+|  4 | pooja      | QualityTester |  25 | Pune        |
++----+------------+---------------+-----+-------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp add dept varchar(20) not null after occupation phoneNo int(10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'phoneNo int(10)' at line 1
+mysql> alter table emp add dept varchar(20) not null after occupation add phoneNo int(10) after age;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add phoneNo int(10) after age' at line 1
+mysql> alter table emp add dept varchar(20) not null after occupation, add phoneNo int after age;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from emp;
++----+------------+---------------+------+-----+---------+-------------+
+| id | name       | occupation    | dept | age | phoneNo | address     |
++----+------------+---------------+------+-----+---------+-------------+
+|  1 | krushikesh | Trainer       |      |  24 |    NULL | Navi Mumbai |
+|  2 | swati      | Devloper      |      |  24 |    NULL | Thane       |
+|  3 | raj        | Tester        |      |  25 |    NULL | Mumbai      |
+|  4 | pooja      | QualityTester |      |  25 |    NULL | Pune        |
++----+------------+---------------+------+-----+---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> update emp set dept='IT',phoneNo=123456789 where id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set dept='IT',phoneNo=123486789 where id=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set dept='IT',phoneNo=923486789 where id=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set dept='IT',phoneNo=751751239 where id=1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from emp;
++----+------------+---------------+------+-----+-----------+-------------+
+| id | name       | occupation    | dept | age | phoneNo   | address     |
++----+------------+---------------+------+-----+-----------+-------------+
+|  1 | krushikesh | Trainer       | IT   |  24 | 751751239 | Navi Mumbai |
+|  2 | swati      | Devloper      | IT   |  24 | 923486789 | Thane       |
+|  3 | raj        | Tester        | IT   |  25 | 123486789 | Mumbai      |
+|  4 | pooja      | QualityTester | IT   |  25 | 123456789 | Pune        |
++----+------------+---------------+------+-----+-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp drop  column phoneNo;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from emp;
++----+------------+---------------+------+-----+-------------+
+| id | name       | occupation    | dept | age | address     |
++----+------------+---------------+------+-----+-------------+
+|  1 | krushikesh | Trainer       | IT   |  24 | Navi Mumbai |
+|  2 | swati      | Devloper      | IT   |  24 | Thane       |
+|  3 | raj        | Tester        | IT   |  25 | Mumbai      |
+|  4 | pooja      | QualityTester | IT   |  25 | Pune        |
++----+------------+---------------+------+-----+-------------+
+4 rows in set (0.00 sec)
+
+mysql>

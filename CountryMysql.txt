@@ -1,0 +1,164 @@
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bookinfo           |
+| companywipro       |
+| countrydb          |
+| employeeinfo       |
+| employeesystem     |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> drop table country;
+ERROR 1046 (3D000): No database selected
+mysql> use countrydb;
+Database changed
+mysql> drop table country;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table country(
+    -> c_id Varchar(10) not null,
+    -> C-name Varchar(20) not null,
+    -> C_code int not null,
+    -> primary key(C_id)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-name Varchar(20) not null,
+C_code int not null,
+primary key(C_id)
+)' at line 3
+mysql> create table country(
+    -> c_id Varchar(10) not null,
+    -> C_name Varchar(20) not null,
+    -> C_code int not null,
+    -> primary key(C_id)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc country;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| c_id   | varchar(10) | NO   | PRI | NULL    |       |
+| C_name | varchar(20) | NO   |     | NULL    |       |
+| C_code | int         | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into country values('COL','Colambia',170);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into country values('FRA','France',250);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into country values('DEU','Germany',276);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into country values('IND','India',356);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into country values('JPN','Japan',392);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from country;
++------+----------+--------+
+| c_id | C_name   | C_code |
++------+----------+--------+
+| COL  | Colambia |    170 |
+| DEU  | Germany  |    276 |
+| FRA  | France   |    250 |
+| IND  | India    |    356 |
+| JPN  | Japan    |    392 |
++------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> alter table country add c_Capital Varchar(20) not null;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from country;
++------+----------+--------+-----------+
+| c_id | C_name   | C_code | c_Capital |
++------+----------+--------+-----------+
+| COL  | Colambia |    170 |           |
+| DEU  | Germany  |    276 |           |
+| FRA  | France   |    250 |           |
+| IND  | India    |    356 |           |
+| JPN  | Japan    |    392 |           |
++------+----------+--------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> update country set c_Capital='Bogota' where c_id='COL';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update country set c_Capital='Berlin' where c_id='DEU';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update country set c_Capital='Paris' where c_id='FRA';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update country set c_Capital='New Delhi' where c_id='IND';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update country set c_Capital='Tokyo' where c_id='JPN';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from country;
++------+----------+--------+-----------+
+| c_id | C_name   | C_code | c_Capital |
++------+----------+--------+-----------+
+| COL  | Colambia |    170 | Bogota    |
+| DEU  | Germany  |    276 | Berlin    |
+| FRA  | France   |    250 | Paris     |
+| IND  | India    |    356 | New Delhi |
+| JPN  | Japan    |    392 | Tokyo     |
++------+----------+--------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> delete from country where c_id='JPN';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from country;
++------+----------+--------+-----------+
+| c_id | C_name   | C_code | c_Capital |
++------+----------+--------+-----------+
+| COL  | Colambia |    170 | Bogota    |
+| DEU  | Germany  |    276 | Berlin    |
+| FRA  | France   |    250 | Paris     |
+| IND  | India    |    356 | New Delhi |
++------+----------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> alter table country drop column c_Capital;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from country;
++------+----------+--------+
+| c_id | C_name   | C_code |
++------+----------+--------+
+| COL  | Colambia |    170 |
+| DEU  | Germany  |    276 |
+| FRA  | France   |    250 |
+| IND  | India    |    356 |
++------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> drop table country;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc country;
+ERROR 1146 (42S02): Table 'countrydb.country' doesn't exist
+mysql>

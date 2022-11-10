@@ -1,0 +1,169 @@
+
+
+mysql> create database world;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use world;
+Database changed
+mysql> create table student(
+    -> s_id int not null,
+    -> s_name Varchar(20) not null,
+    -> course_name varchar(20) not null,
+    -> primary key(s_id)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into student values(1,'krushikesh','java');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(2,'rahul','C++');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(3,'pooja','java');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(4,'swati','AWP');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create table officers(
+    -> of_id int not null,
+    -> of_name Varchar(20) not null,
+    -> address varchar(20) not null,
+    -> primary key(of_id)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into officers values(1,'ram','Mumbai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into officers values(2,'mukesh','Navi Mumbai');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into officers values(3,'rupali','Pune');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into officers values(4,'prachi','panjab');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into officers values(5,'rishi','New Dehli');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc student;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| s_id        | int         | NO   | PRI | NULL    |       |
+| s_name      | varchar(20) | NO   |     | NULL    |       |
+| course_name | varchar(20) | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> desc officers;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| of_id   | int         | NO   | PRI | NULL    |       |
+| of_name | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select *from student;
++------+------------+-------------+
+| s_id | s_name     | course_name |
++------+------------+-------------+
+|    1 | krushikesh | java        |
+|    2 | rahul      | C++         |
+|    3 | pooja      | java        |
+|    4 | swati      | AWP         |
++------+------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select *from officers;
++-------+---------+-------------+
+| of_id | of_name | address     |
++-------+---------+-------------+
+|     1 | ram     | Mumbai      |
+|     2 | mukesh  | Navi Mumbai |
+|     3 | rupali  | Pune        |
+|     4 | prachi  | panjab      |
+|     5 | rishi   | New Dehli   |
++-------+---------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select officers.of_name,officers.address,student.s_name,student.course_name
+    -> from officers
+    -> inner join student
+    -> on officers.of_id=student.s_id;
++---------+-------------+------------+-------------+
+| of_name | address     | s_name     | course_name |
++---------+-------------+------------+-------------+
+| ram     | Mumbai      | krushikesh | java        |
+| mukesh  | Navi Mumbai | rahul      | C++         |
+| rupali  | Pune        | pooja      | java        |
+| prachi  | panjab      | swati      | AWP         |
++---------+-------------+------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select officers.of_name,student.s_name
+    -> from officers
+    -> left join student
+    -> on officers.of_id=student.s_id;
++---------+------------+
+| of_name | s_name     |
++---------+------------+
+| ram     | krushikesh |
+| mukesh  | rahul      |
+| rupali  | pooja      |
+| prachi  | swati      |
+| rishi   | NULL       |
++---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select officers.of_name,student.s_name
+    -> from officers
+    -> right join student
+    -> on officers.of_id=student.s_id;
++---------+------------+
+| of_name | s_name     |
++---------+------------+
+| ram     | krushikesh |
+| mukesh  | rahul      |
+| rupali  | pooja      |
+| prachi  | swati      |
++---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select officers.of_name,officers.address,student.s_name,student.course_name
+    -> from officers
+    -> full join student
+    -> on officers.of_id=student.s_id;
+ERROR 1054 (42S22): Unknown column 'officers.of_name' in 'field list'
+mysql> select*from officers full join student;
++-------+---------+-------------+------+------------+-------------+
+| of_id | of_name | address     | s_id | s_name     | course_name |
++-------+---------+-------------+------+------------+-------------+
+|     1 | ram     | Mumbai      |    4 | swati      | AWP         |
+|     1 | ram     | Mumbai      |    3 | pooja      | java        |
+|     1 | ram     | Mumbai      |    2 | rahul      | C++         |
+|     1 | ram     | Mumbai      |    1 | krushikesh | java        |
+|     2 | mukesh  | Navi Mumbai |    4 | swati      | AWP         |
+|     2 | mukesh  | Navi Mumbai |    3 | pooja      | java        |
+|     2 | mukesh  | Navi Mumbai |    2 | rahul      | C++         |
+|     2 | mukesh  | Navi Mumbai |    1 | krushikesh | java        |
+|     3 | rupali  | Pune        |    4 | swati      | AWP         |
+|     3 | rupali  | Pune        |    3 | pooja      | java        |
+|     3 | rupali  | Pune        |    2 | rahul      | C++         |
+|     3 | rupali  | Pune        |    1 | krushikesh | java        |
+|     4 | prachi  | panjab      |    4 | swati      | AWP         |
+|     4 | prachi  | panjab      |    3 | pooja      | java        |
+|     4 | prachi  | panjab      |    2 | rahul      | C++         |
+|     4 | prachi  | panjab      |    1 | krushikesh | java        |
+|     5 | rishi   | New Dehli   |    4 | swati      | AWP         |
+|     5 | rishi   | New Dehli   |    3 | pooja      | java        |
+|     5 | rishi   | New Dehli   |    2 | rahul      | C++         |
+|     5 | rishi   | New Dehli   |    1 | krushikesh | java        |
++-------+---------+-------------+------+------------+-------------+
+20 rows in set (0.00 sec)
+
+mysql>
